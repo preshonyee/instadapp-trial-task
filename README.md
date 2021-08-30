@@ -1,36 +1,60 @@
-# TypeScript Example
+# Instadapp Trial Task
 
-<p>
-  <!-- iOS -->
-  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  <!-- Android -->
-  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  <!-- Web -->
-  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-</p>
+## Screenshots
 
-```sh
-npx create-react-native-app -t with-typescript
-```
+### Onboarding
 
-TypeScript is a superset of JavaScript which gives you static types and powerful tooling in Visual Studio Code including autocompletion and useful inline warnings for type errors.
+![onboarding-screen-1]('./../screenshots/onboarding-1.png)
+![onboarding-screen-2]('./../screenshots/onboarding-2.png)
+![onboarding-screen-3]('./../screenshots/onboarding-3.png)
 
-## 🚀 How to use
+### Intro Screen, Create Wallet, Login
 
-#### Creating a new project
+![intro-screen]('./../screenshots/intro-screen.png)
+![create-wallet-screen]('./../screenshots/create-wallet.png)
+![login-screen]('./../screenshots/login.png)
 
-- Install the CLI: `npm i -g expo-cli`
-- Create a project: `npx create-react-native-app -t with-typescript`
-- `cd` into the project
+### Dashboard, Send Txn, Receive Txn
 
-### Adding TypeScript to existing projects
+![dashboard]('./../screenshots/dashboard-2.png)
+![send-txn-screen]('./../screenshots/send-txn.png)
+![receive-txn-screen]('./../screenshots/receive-txn.png)
 
-- Create a blank TypeScript config: `touch tsconfig.json`
-- Run `expo start` to automatically configure TypeScript
-- Rename files to TypeScript, `.tsx` for React components and `.ts` for plain typescript files
+## Steps to run the app
 
-> 💡 You can disable the TypeScript setup in Expo CLI with the environment variable `EXPO_NO_TYPESCRIPT_SETUP=1 expo start`
+1. Clone the app
+2. Install Packages with `yarn install`
+3. Rename `.env.should-be-renamed` to `.env`
+4. Run the app with `yarn ios`
 
-## 📝 Notes
+## Notes and further improvements
 
-- [Expo TypeScript guide](https://docs.expo.dev/versions/latest/guides/typescript/)
+### Switch Expo Secure Store to KeyChain/KeyStore
+
+The `user password`, `uniqueID`, `user account`, and `onboarding status` are all single key entries stored locally on the device with the use of Expo Secure Store, this is the same as AsyncStorage but it's not secure as it isn't encrypted. A better alternative would be to use
+[React Native Keychain/Keystore](https://github.com/oblador/react-native-keychain)
+
+### Switch Infura keys from .env to a more secure and encrypted option
+
+Currently the private keys and secrets to Infura are all stored in a local .env file which is not secure at all since it is bundled with the rest of code in production. There are multiple ways to take of this, a better solution would have to be one that involves some kind of encryption and can't be exposed when reversed engineered. See
+[Storing sensitive information in React Native](https://reactnative.dev/docs/security#storing-sensitive-info)
+
+### Figure out a way to work with the secure pass phrase
+
+The `import wallet` functionality is not implemented yet. This is because adding support for a secure passphrase in the same way MetaMask has it would require more time and effort to figure out the best way to:
+
+- Generate the unique passphrase
+- Properly store the passphrase
+- Create a UX flow around inputting the passphrase
+- Implement this closely with the `import wallet` functionality
+
+### Add support for faceID and logout the user idle interval
+
+Right now, there's no biometrics support. The current means of login in the app remains the use of the on-device password. Adding support for say Fingerprint or FaceID will improve the security of the app and doesn't require the user to always type in a password.
+
+Also, with MetaMask, after a period of idle time while the app is running, your session is automatically terminated and the user is returned to the login screen to login into the app.
+
+### Learn more about MetaMask security
+
+There's a lot to learn and implement regarding security for an app like this. Using MetaMask as a case study exposes more room for improvement since it is popular and open-source. It is also built with React Native too.
+[Here is a detailed case study on how MetaMask stores wallet secrets](https://www.wispwisp.com/index.php/2020/12/25/how-metamask-stores-your-wallet-secret/)

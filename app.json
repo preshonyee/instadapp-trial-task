@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "ios": {
+      "bundleIdentifier": "com.instadapp"
+    },
+    "android": {
+      "package": "com.instadapp"
+    },
+    "scheme": "instadapp",
+    "icon": "assets/image/app-icon.png",
+    "splash": {
+      "image": "assets/image/app-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000"
+    },
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": [
+        "expo.ts",
+        "expo.tsx",
+        "expo.js",
+        "expo.jsx",
+        "ts",
+        "tsx",
+        "js",
+        "jsx",
+        "json",
+        "wasm",
+        "svg"
+      ]
+    }
+  }
+}
