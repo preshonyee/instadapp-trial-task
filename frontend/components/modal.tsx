@@ -22,7 +22,9 @@ export const AppModal = ({ isVisible, children }: AppModalProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    padding: 16,
+  },
   inner: {
     backgroundColor: COLORS.white,
     borderRadius: 12,

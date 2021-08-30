@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-raw-text */
 import { INFURA_PROJECT_ID } from "@env";
 import { Formik } from "formik";
-import React, { useContext } from "react";
+import React from "react";
 import { ActivityIndicator, Alert, StyleSheet } from "react-native";
 import Web3 from "web3";
 import * as Yup from "yup";
@@ -15,7 +15,6 @@ import {
 } from "../../components";
 import { AppModal } from "../../components/modal";
 import { Spacer } from "../../components/spacer";
-import AccountContext from "../../context/AccountContext";
 import { COLORS } from "../../utils/colors";
 
 type TxnType = {
@@ -33,10 +32,10 @@ const validationSchema = Yup.object().shape({
   to: Yup.string().required().label("To"),
 });
 
-export const SendTxnScreen = () => {
+export const SendTxnScreen = ({ route }) => {
+  const { address } = route.params;
   const web3 = new Web3(`https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`);
 
-  const { userAccount } = useContext(AccountContext);
   const [showModal, setShowModal] = React.useState(false);
   const [txnInitiatedMsg, setTxnInitiatedMsg] = React.useState("");
 
@@ -48,7 +47,7 @@ export const SendTxnScreen = () => {
     // Variables definition
     const privKey =
       "99B3C12287537E38C90A9219D4CB074A89A16E9CDB20BF85728EBD97C343E342"; // Genesis private key
-    const addressFrom = userAccount.address;
+    const addressFrom = address;
     const addressTo = values.to;
 
     const gasLimit = "21000"; // 21000 is the default gas limit
@@ -76,16 +75,16 @@ export const SendTxnScreen = () => {
           web3.eth
             .sendSignedTransaction(response.rawTransaction)
             .then((response) => {
-              console.log("SEE ME HERE OH", { response });
+              // if (response) {
+              //   // Alert.alert(
+              //   //   `Transaction successful with hash: ${response.transactionHash}`
+              //   // );
+              // }
             })
             .catch((error) => {
-              // console.log("SEE ERROR OH", error);
               setShowModal(false);
               Alert.alert("Error", error.message);
             });
-          Alert.alert(
-            `Transaction successful with hash: ${response.transactionHash}`
-          );
         });
     } catch (error) {
       console.log(error);
@@ -141,7 +140,7 @@ export const SendTxnScreen = () => {
           </Formik>
         </AppView>
         <AppModal isVisible={showModal}>
-          <Typography>{txnInitiatedMsg}</Typography>
+          <Typography size={20}>{txnInitiatedMsg}</Typography>
           <Spacer mt={24} />
           <ActivityIndicator size="large" animating />
         </AppModal>

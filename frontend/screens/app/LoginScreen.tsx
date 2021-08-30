@@ -36,7 +36,7 @@ export const LoginScreen = ({ navigation }) => {
         // initiate authContext
         authContext.setUser({ passPhrase: "", userID: storedID });
       } catch (error) {
-        console.log();
+        console.log(error);
       }
     } else {
       Alert.alert("Invalid credentials");
@@ -50,7 +50,7 @@ export const LoginScreen = ({ navigation }) => {
     authStorage.removeStoredCredentials("InstadappUser");
     authStorage.removeStoredCredentials("InstadappAccount");
     navigation.navigate("IntroScreen");
-    console.log("RESET WALLET SUCCESSFUL");
+    Alert.alert("RESET WALLET SUCCESSFUL");
   };
   return (
     <AppScreen>

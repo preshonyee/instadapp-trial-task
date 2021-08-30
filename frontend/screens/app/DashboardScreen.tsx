@@ -1,13 +1,15 @@
 /* eslint-disable react-native/no-raw-text */
-import { INFURA_PROJECT_ID, TheDAO_Withdraw_Contract } from "@env";
+import { INFURA_PROJECT_ID } from "@env";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet } from "react-native";
 import Web3 from "web3";
 
+import authStorage from "../../auth/authStorage";
 import { AppScreen, AppView, Button, Typography } from "../../components";
 import { Spacer } from "../../components/spacer";
-import AccountContext from "../../context/AccountContext";
+import { defaultUserAccountState } from "../../context/AccountContext";
+import { UserAccount } from "../../types";
 import { COLORS } from "../../utils/colors";
 
 type ContractBalance = {
@@ -25,8 +27,11 @@ type ExchangeRate = {
 export const DashboardScreen = ({ navigation }) => {
   const web3 = new Web3(`https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`);
 
-  const { userAccount } = useContext(AccountContext);
-  const [contractBalance, setContractBalance] = useState({} as ContractBalance);
+  const [userAccount, setUserAccount] = useState<null | UserAccount>(
+    defaultUserAccountState
+  );
+
+  const [contractBalance, setContractBalance] = useState("");
   const [contractBalanceLoaded, setContractBalanceLoaded] = useState(false);
   const [exchangeRate, setExchangeRate] = useState(0.0);
 
@@ -39,10 +44,8 @@ export const DashboardScreen = ({ navigation }) => {
     id: 1,
     jsonrpc: "2.0",
     method: "eth_getBalance",
-    params: [
-      userAccount.address ? userAccount.address : TheDAO_Withdraw_Contract,
-      "latest",
-    ],
+
+    params: [userAccount.address, "latest"],
   });
 
   const config = {
@@ -55,8 +58,15 @@ export const DashboardScreen = ({ navigation }) => {
       axios
         .post(URL, getContractBalanceData, config)
         .then((response) => {
-          const result = response.data;
-          setContractBalance(result);
+          const result: ContractBalance = response.data;
+          // convert contract balance to Ether
+          const contractBalanceInEther = web3.utils.fromWei(
+            result.result,
+            "ether"
+          );
+          // //  format to 2 decimal places
+          const fixedEtherBalance = Number(contractBalanceInEther).toFixed(2);
+          setContractBalance(fixedEtherBalance);
           setContractBalanceLoaded(true);
         })
         .catch((error) => console.log(error));
@@ -65,10 +75,25 @@ export const DashboardScreen = ({ navigation }) => {
     }
   };
 
+  const getUserAccount = async () => {
+    try {
+      const account = await authStorage.getStoredCredentials(
+        "InstadappAccount"
+      );
+      setUserAccount(JSON.parse(account));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserAccount();
+  }, []);
+
   useEffect(() => {
     getContractBalance();
     checkExchangeRates();
-  }, []);
+  }, [userAccount.address]);
 
   const checkExchangeRates = () => {
     axios.get(exChangeRateURL).then((response) => {
@@ -77,27 +102,9 @@ export const DashboardScreen = ({ navigation }) => {
     });
   };
 
-  const contractBalanceToEther = (contractBalance: string) => {
-    // convert contract balance to Ether
-    const contractBalanceInEther = web3.utils.fromWei(contractBalance, "ether");
-    // //  format to 2 decimal places
-    const fixedEtherBalance = Number(contractBalanceInEther).toFixed(2);
-    // // format with comma separated values
-    const formattedEtherBalance = Number(fixedEtherBalance).toLocaleString();
-    return formattedEtherBalance;
-  };
-
-  const convertEtherToUSD = (contractBalance: string) => {
-    // convert contract balance to Ether
-    const contractBalanceInEther = web3.utils.fromWei(contractBalance, "ether");
-    // multiply by exchange rate
-    const contractBalanceInUSD = Number(contractBalanceInEther) * exchangeRate;
-    // format to 2 decimal places
-    const fixedUSDBalance = Number(contractBalanceInUSD).toFixed(2);
-    // format with comma separated values
-    const formattedUSDBalance = Number(fixedUSDBalance).toLocaleString();
-    return formattedUSDBalance;
-  };
+  const contractBalanceInUSD = (Number(contractBalance) * exchangeRate).toFixed(
+    2
+  );
 
   return (
     <AppScreen>
@@ -114,7 +121,7 @@ export const DashboardScreen = ({ navigation }) => {
             color={COLORS.brand}
             size={48}
             weight="bold">
-            {`${contractBalanceToEther(contractBalance.result)} ETH`}
+            {`${Number(contractBalance).toLocaleString()} ETH`}
           </Typography>
           <Spacer my={16} />
           <Typography>Equivalent in USD</Typography>
@@ -123,23 +130,31 @@ export const DashboardScreen = ({ navigation }) => {
             color={COLORS.gray}
             weight="500"
             size={40}>
-            {`$${convertEtherToUSD(contractBalance.result)}`}
+            {`$${Number(contractBalanceInUSD).toLocaleString()}`}
           </Typography>
           <Spacer my={8} />
           <Typography>Your Wallet Address</Typography>
           <Spacer my={4} />
           {userAccount === null ? (
-            <ActivityIndicator size="small" animating />
+            <ActivityIndicator size="large" animating />
           ) : (
             <Typography size={18}>{userAccount.address}</Typography>
           )}
           <Spacer my={16} />
           <Button
-            onPress={() => navigation.navigate("SendScreen")}
+            onPress={() =>
+              navigation.navigate("SendScreen", {
+                address: userAccount.address,
+              })
+            }
             label="Send"
           />
           <Button
-            onPress={() => navigation.navigate("ReceiveScreen")}
+            onPress={() =>
+              navigation.navigate("ReceiveScreen", {
+                address: userAccount.address,
+              })
+            }
             label="Receive"
           />
         </AppView>

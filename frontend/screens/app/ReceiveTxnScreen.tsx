@@ -1,19 +1,18 @@
 /* eslint-disable react-native/no-raw-text */
 import * as Clipboard from "expo-clipboard";
-import React, { useContext } from "react";
+import React from "react";
 import { Alert, StyleSheet } from "react-native";
 import QRCode from "react-qr-code";
 
 import { AppScreen, AppView, Button, Typography } from "../../components";
-import AccountContext from "../../context/AccountContext";
 import { COLORS } from "../../utils/colors";
 
-export const ReceiveTxnScreen = () => {
-  const { userAccount } = useContext(AccountContext);
+export const ReceiveTxnScreen = ({ route }) => {
+  const { address } = route.params;
 
   // Copy to clipboard
   const copyToClipboard = () => {
-    Clipboard.setString(userAccount.address);
+    Clipboard.setString(address);
     Alert.alert("Copied to clipboard");
   };
 
@@ -25,7 +24,7 @@ export const ReceiveTxnScreen = () => {
         </Typography>
         <QRCode value="hey" />
         <Typography style={styles.code} color={COLORS.gray} size={20}>
-          {userAccount.address}
+          {address}
         </Typography>
         <Button label="Share" onPress={copyToClipboard} />
       </AppView>

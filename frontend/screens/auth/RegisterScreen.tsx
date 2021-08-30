@@ -36,7 +36,6 @@ export const RegisterScreen = () => {
       try {
         // generate random UserID
         const userID = Math.random().toString(36).substr(2, 10);
-        console.log({ userID });
         // store password on device
         authStorage.storeCredentials("securePassword", values.confirmPassword);
         // store userID on device
@@ -48,7 +47,6 @@ export const RegisterScreen = () => {
 
         const newWallet = web3.eth.accounts.wallet.create(1);
         const newAccount = newWallet[0];
-        console.log({ newAccount });
         // store new user account on device
         authStorage.storeCredentials(
           "InstadappAccount",
@@ -59,7 +57,7 @@ export const RegisterScreen = () => {
         // initiate authContext
         authContext.setUser({ passPhrase: "", userID: userID });
       } catch (error) {
-        console.log();
+        console.log(error);
       }
     } else {
       Alert.alert("Passwords don't match");

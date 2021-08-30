@@ -14,8 +14,6 @@ type AuthNavigationProps = {
 };
 
 const AuthNavigator = ({ onboardingComplete }: AuthNavigationProps) => {
-  console.log({ onboardingComplete });
-
   return (
     <Stack.Navigator
       initialRouteName={onboardingComplete ? "LoginScreen" : "Onboarding"}>
