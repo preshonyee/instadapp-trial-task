@@ -5,25 +5,25 @@
 ### Onboarding
 
 <span>
-  <img width='300px' src="./screenshots/onboarding-1.png" alt="onboarding-screen-1" />
-  <img width='300px' src="./screenshots/onboarding-2.png" alt="onboarding-screen-2" />
-  <img width='300px' src="./screenshots/onboarding-3.png" alt="onboarding-screen-3" />
+  <img width='250px' src="./screenshots/onboarding-1.png" alt="onboarding-screen-1" />
+  <img width='250px' src="./screenshots/onboarding-2.png" alt="onboarding-screen-2" />
+  <img width='250px' src="./screenshots/onboarding-3.png" alt="onboarding-screen-3" />
  </span>
 
 ### Intro Screen, Create Wallet, Login
 
 <span>
-  <img width='300px' src="./screenshots/intro-screen.png" alt="intro-screen" />
-  <img width='300px' src="./screenshots/create-wallet.png" alt="create-wallet-screen" />
-  <img width='300px' src="./screenshots/login.png" alt="login-screen" />
+  <img width='250px' src="./screenshots/intro-screen.png" alt="intro-screen" />
+  <img width='250px' src="./screenshots/create-wallet.png" alt="create-wallet-screen" />
+  <img width='250px' src="./screenshots/login.png" alt="login-screen" />
 </span>
 
 ### Dashboard, Send Txn, Receive Txn
 
 <span>
-  <img width='300px' src="./screenshots/dashboard-2.png" alt="dashboard" />
-  <img width='300px' src="./screenshots/send-txn.png" alt="send-txn-screen" />
-  <img width='300px' src="./screenshots/receive-txn.png" alt="receive-txn-screen" />
+  <img width='250px' src="./screenshots/dashboard-2.png" alt="dashboard" />
+  <img width='250px' src="./screenshots/send-txn.png" alt="send-txn-screen" />
+  <img width='250px' src="./screenshots/receive-txn.png" alt="receive-txn-screen" />
 </span>
 
 ## Steps to run the app
