@@ -22,7 +22,7 @@ export const ReceiveTxnScreen = ({ route }) => {
         <Typography style={styles.qrText} size={24}>
           QR Code
         </Typography>
-        <QRCode value="hey" />
+        <QRCode value={address} />
         <Typography style={styles.code} color={COLORS.gray} size={20}>
           {address}
         </Typography>
