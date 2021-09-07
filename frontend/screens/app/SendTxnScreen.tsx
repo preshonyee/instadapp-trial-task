@@ -27,9 +27,15 @@ type TxnType = {
 };
 
 const validationSchema = Yup.object().shape({
-  amount: Yup.string().required().label("Amount"),
+  amount: Yup.string()
+    .matches(/[1-9]/, "Please put in a valid amount")
+    .required()
+    .label("Amount"),
   info: Yup.string().required().label("Info"),
-  to: Yup.string().required().label("To"),
+  to: Yup.string()
+    .matches(/^0x[a-fA-F0-9]{40}$/, "Invalid wallet address")
+    .required()
+    .label("To"),
 });
 
 export const SendTxnScreen = ({ route }) => {
