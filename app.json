@@ -4,12 +4,22 @@
       "bundleIdentifier": "com.instadapp"
     },
     "android": {
-      "package": "com.instadapp"
+      "package": "com.instadapp",
+      "splash": {
+        "image": "assets/image/splash.png",
+        "hdpi": "assets/image/splash.png",
+        "mdpi": "assets/image/splash.png",
+        "xhdpi": "assets/image/splash.png",
+        "xxhdpi": "assets/image/splash.png",
+        "xxxhdpi": "assets/image/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#000"
+      }
     },
     "scheme": "instadapp",
     "icon": "assets/image/app-icon.png",
     "splash": {
-      "image": "assets/image/app-icon.png",
+      "image": "assets/image/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#000"
     },
@@ -28,6 +38,10 @@
         "wasm",
         "svg"
       ]
-    }
+    },
+    "name": "Instadapp Trial",
+    "description": "",
+    "slug": "instadapp-trial",
+    "githubUrl": "https://github.com/Preshonyee/instadapp-trial-task"
   }
 }

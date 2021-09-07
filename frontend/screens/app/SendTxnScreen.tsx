@@ -148,7 +148,7 @@ export const SendTxnScreen = ({ route }) => {
         <AppModal isVisible={showModal}>
           <Typography size={20}>{txnInitiatedMsg}</Typography>
           <Spacer mt={24} />
-          <ActivityIndicator size="large" animating />
+          <ActivityIndicator color={COLORS.brand} size="large" animating />
         </AppModal>
       </AppView>
     </AppScreen>

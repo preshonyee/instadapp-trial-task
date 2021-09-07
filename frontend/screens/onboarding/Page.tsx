@@ -3,7 +3,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-native/no-raw-text */
 import React from "react";
-import { Pressable, StyleSheet, useWindowDimensions } from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 
 import { AppView, Typography } from "../../components";
 import { Spacer } from "../../components/spacer";

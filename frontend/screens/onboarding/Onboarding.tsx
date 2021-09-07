@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import PagerView from "react-native-pager-view";
 
 import DashboardImage from "../../../assets/image/onboarding/dashboard-image.svg";
@@ -32,7 +32,7 @@ export const Onboarding = ({ navigation }) => {
       initialPage={0}
       ref={pagerRef}
       showPageIndicator>
-      <AppView key="1">
+      <View collapsable={false} key="1">
         <Page
           image={<WalletImage height={300} width="100%" />}
           title="Create or Import Wallet"
@@ -43,8 +43,8 @@ export const Onboarding = ({ navigation }) => {
             handlePageChange(1);
           }}
         />
-      </AppView>
-      <AppView key="2">
+      </View>
+      <View collapsable={false} key="2">
         <Page
           image={<DashboardImage height={300} width="100%" />}
           title="Dashboard Summary"
@@ -55,8 +55,8 @@ export const Onboarding = ({ navigation }) => {
             handlePageChange(2);
           }}
         />
-      </AppView>
-      <AppView key="3">
+      </View>
+      <View collapsable={false} key="3">
         <Page
           image={<TransactionImage height={300} width="100%" />}
           title="Send and Receive Funds"
@@ -65,7 +65,7 @@ export const Onboarding = ({ navigation }) => {
           rightButtonLabel="Continue"
           rightButtonPress={handleOnboardingComplete}
         />
-      </AppView>
+      </View>
     </PagerView>
   );
 };

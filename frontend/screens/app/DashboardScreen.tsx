@@ -110,7 +110,7 @@ export const DashboardScreen = ({ navigation }) => {
     <AppScreen>
       {!contractBalanceLoaded ? (
         <AppView style={styles.spinner}>
-          <ActivityIndicator size="large" animating />
+          <ActivityIndicator color={COLORS.brand} size="large" animating />
         </AppView>
       ) : (
         <AppView style={styles.container}>
@@ -136,7 +136,7 @@ export const DashboardScreen = ({ navigation }) => {
           <Typography>Your Wallet Address</Typography>
           <Spacer my={4} />
           {userAccount === null ? (
-            <ActivityIndicator size="large" animating />
+            <ActivityIndicator color={COLORS.brand} size="large" animating />
           ) : (
             <Typography size={18}>{userAccount.address}</Typography>
           )}
