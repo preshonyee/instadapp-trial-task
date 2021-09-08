@@ -13,7 +13,7 @@
         "xxhdpi": "assets/image/splash.png",
         "xxxhdpi": "assets/image/splash.png",
         "resizeMode": "contain",
-        "backgroundColor": "#000"
+        "backgroundColor": "#000000"
       }
     },
     "scheme": "instadapp",
@@ -21,7 +21,7 @@
     "splash": {
       "image": "assets/image/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000"
+      "backgroundColor": "#000000"
     },
     "packagerOpts": {
       "config": "metro.config.js",
