@@ -40,7 +40,7 @@ const validationSchema = Yup.object().shape({
 
 export const SendTxnScreen = ({ route }) => {
   const { address } = route.params;
-  const web3 = new Web3(`https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`);
+  const web3 = new Web3(`https://kovan.infura.io/v3/${INFURA_PROJECT_ID}`);
 
   const [showModal, setShowModal] = React.useState(false);
   const [txnInitiatedMsg, setTxnInitiatedMsg] = React.useState("");

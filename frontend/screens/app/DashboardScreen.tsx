@@ -25,7 +25,7 @@ type ExchangeRate = {
 };
 
 export const DashboardScreen = ({ navigation }) => {
-  const web3 = new Web3(`https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`);
+  const web3 = new Web3(`https://kovan.infura.io/v3/${INFURA_PROJECT_ID}`);
 
   const [userAccount, setUserAccount] = useState<null | UserAccount>(
     defaultUserAccountState
@@ -35,7 +35,7 @@ export const DashboardScreen = ({ navigation }) => {
   const [contractBalanceLoaded, setContractBalanceLoaded] = useState(false);
   const [exchangeRate, setExchangeRate] = useState(0.0);
 
-  const URL = `https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`;
+  const URL = `https://kovan.infura.io/v3/${INFURA_PROJECT_ID}`;
 
   const exChangeRateURL =
     "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR";

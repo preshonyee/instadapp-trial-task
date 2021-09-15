@@ -42,7 +42,7 @@ export const RegisterScreen = () => {
         authStorage.storeCredentials("InstadappUser", userID);
         // create ether wallet account
         const web3 = new Web3(
-          `https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`
+          `https://kovan.infura.io/v3/${INFURA_PROJECT_ID}`
         );
 
         const newWallet = web3.eth.accounts.wallet.create(1);
